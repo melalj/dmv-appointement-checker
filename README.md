@@ -1,1 +1,1 @@
-# DMV Appointement Checker
+# DMV Appointment Checker
