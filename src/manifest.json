@@ -3,7 +3,7 @@
   "name": "DMV Appointment Checker",
   "short_name": "dmv-appointment-checker",
   "description": "Monitor latest appointment availabilities for the Californian Department of Motor Vehicle",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Mohammed Elalj",
   "options_page": "options.html",
   "icons": {
@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.dmv.ca.gov/wasapp/foa/*"],
-      "js": ["main.js"],
+      "js": ["content-script.js"],
       "run_at": "document_end"
     }
   ],

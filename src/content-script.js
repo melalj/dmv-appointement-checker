@@ -8,13 +8,17 @@ var initialUrl = 'https://www.dmv.ca.gov/wasapp/foa/clear.do?goTo=officeVisit';
 var optionList = ["hasSeenIntro", "officeId", "reason", "driverLicence", "firstName", "lastName", "phoneArea", "phonePrefix", "phoneSuffix", "dateBefore", "enabled", "sameDay"];
 var mandatoryOptions = ["officeId", "reason", "firstName", "lastName", "phoneArea", "phonePrefix", "phoneSuffix", "dateBefore"];
 
+var monthNames = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"
+];
+
 var logInfo = function (txt) {
   document.querySelector('#app_header > h1').innerHTML = txt;
 }
 
 var countDown = function(){
   totalCount--;
-  logInfo(countDownPrefix + ' - Next check in ' + totalCount + 's');
+  logInfo(countDownPrefix + ' - re-ckecking in ' + totalCount + 's');
 
   if (totalCount <= 0) {
     document.location.href = initialUrl;
@@ -48,7 +52,9 @@ var checkNewDates = function(options){
 
   // Submitting forms
   if (document.location.href === 'https://www.dmv.ca.gov/wasapp/foa/confirmOfficeVisit.do#dac') {
-    alert('Appointment booked!');
+    return chrome.storage.sync.set({ enabled: false }, () => {
+      alert('Appointment booked!');
+    });
     return;
   }
 
@@ -90,7 +96,7 @@ var checkNewDates = function(options){
       countDownPrefix = 'Invalid Date';
     }
 
-    var dateBefore = new Date(Date.parse(options.dateBefore + ' 23:59:59'));
+    var dateBefore = new Date(Date.parse(options.dateBefore));
     var today = new Date();
 
     if (
@@ -109,7 +115,7 @@ var checkNewDates = function(options){
       document.querySelector('#ApptForm').submit();
       return;
     } else {
-      countDownPrefix = 'Late date';
+      countDownPrefix = 'No availabilities before ' + monthNames[dateBefore.getMonth()] + ' ' + dateBefore.getDate();
     }
 
     clearTimeout(timeoutRefresh);

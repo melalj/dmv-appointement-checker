@@ -3,9 +3,10 @@
 
 <head>
     <title>DMV Appointment Checker - Options</title>
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="bootstrap-theme.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" href="css/options.css">
 </head>
 
 <body>
@@ -244,14 +245,26 @@
             <br>
 
             <div class="jumbotron">
-                <p>Now that you have filled in the options... To monitor appointment, enable it first, select your maximum date, go to
-                    the DMV Appointment page and let the window run on the background.
+                <p>Now that you have filled in the options... To monitor appointments, pick a maximum date, enable the monitoring,
+                    go to the DMV Appointment page and let the window run on the background.
                     <br>It will automagically look of an available spot and book it for you ✨.</p>
                 <p>
                     <table>
                         <tr>
-                            <td style="width: 120px">
-                                <small>Enabled: </small>
+                            <td colspan="2">
+                                <strong>Book before: </strong>
+                                <div class="form-group">
+                                    <div id="dp"></div>
+                                    <input type="hidden" data-save class="form-control" id="dateBefore" />
+                                </div>
+                            </td>
+
+
+
+                        </tr>
+                        <tr>
+                            <td style="width: 140px">
+                                <small>Enable monitoring </small>
                                 <br>
                                 <label class="switch">
                                     <input type="checkbox" data-save id='enabled'>
@@ -259,15 +272,8 @@
                                 </label>
                             </td>
                             <td>
-                                <small>Maximum date: </small>
-                                <div class="form-group">
-                                    <input type="date" data-save class="form-control" id="dateBefore" />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                    <input type="checkbox" data-save id='sameDay'> Allow same day appointments
+                                <input type="checkbox" data-save id='sameDay'> Allow same day appointments
+
                             </td>
                         </tr>
                     </table>
@@ -284,7 +290,9 @@
             </p>
         </form>
     </div>
-    <script src="options.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/options.js"></script>
 </body>
 
 </html>

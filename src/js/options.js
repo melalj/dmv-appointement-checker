@@ -20,7 +20,7 @@ function saveOptions() {
   });
 }
 
-function restoreOptions() {
+function restoreOptions(cb) {
   var optionsList = Array.from(document.querySelectorAll("[data-save]")).map(
     d => d.id
   );
@@ -34,6 +34,7 @@ function restoreOptions() {
         }
       }
     });
+    cb();
   });
 }
 
@@ -79,6 +80,23 @@ function loadGA() {
 
 document.addEventListener("DOMContentLoaded", function() {
   attachSave();
-  restoreOptions();
+  restoreOptions(() => {
+    var startDate = new Date();
+    startDate.setDate(startDate.getDate()-1);
+    
+    var endDate = new Date(Date.parse(document.getElementById('dateBefore').value));
+    
+    var dp = $('#dp').datepicker({
+      daysOfWeekDisabled: "0,6",
+      todayHighlight: true,
+      startDate,
+    }).on('changeDate', function(e) {
+      var val = e.date.toString().replace('00:00:00', '23:59:59');
+      document.getElementById('dateBefore').value = val;
+      saveOptions();
+    });
+  
+    dp.datepicker('update', new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()));
+  });
   loadGA();
 });
