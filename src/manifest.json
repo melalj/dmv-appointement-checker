@@ -3,8 +3,8 @@
   "name": "DMV Appointment Checker",
   "short_name": "dmv-appointment-checker",
   "description": "Monitor latest appointment availabilities for the Californian Department of Motor Vehicle",
-  "version": "1.1.0",
-  "author": "Mohammed Elalj",
+  "version": "1.1.1",
+  "author": "Mohammed Elalj <hi@tonoid.com>",
   "options_page": "options.html",
   "icons": {
     "16": "16.png",
