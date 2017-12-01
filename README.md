@@ -2,7 +2,7 @@
 
 Monitor latest appointment availabilities for the Californian Department of Motor Vehicle
 
-<img alt="DMV Appointement checker screenshot" src="https://lh3.googleusercontent.com/JHpYUFZgAo6tIWzxQn6fmX3bDPIVZFkRegB2j4nHje5bsjkLNSpAoj9q8pLfK7xNjN6FoQHqVQ=w640-h400-e365" width="640" height"400" />
+<img alt="DMV Appointement checker screenshot" src="https://lh3.googleusercontent.com/JHpYUFZgAo6tIWzxQn6fmX3bDPIVZFkRegB2j4nHje5bsjkLNSpAoj9q8pLfK7xNjN6FoQHqVQ=w640-h400-e365" width="640">
 
 
 ## Contribute
@@ -22,7 +22,7 @@ You are welcomed to fork the project and make pull requests.
  * Develop Firefox and Safari versions
 
 ## Release History
-* Version 1.1.1: November 30 2017
+* Version 1.1.1: December 1 2017
   * Open sourced the extension
 * Version 1.1.0: November 30 2017
   * Fixed typos
