@@ -1,12 +1,12 @@
 var timeoutCountdown = null;
 var timeoutRefresh = null;
-var dateSelector = '#ApptForm > div:nth-child(1) > div.r-table.col-xs-12 > table > tbody > tr > td:nth-child(3) > p:nth-child(2) > strong';
+var dateSelector = '#formId_1 > div > div.r-table.col-xs-12 > table > tbody > tr > td:nth-child(3) > p:nth-child(2) > strong';
 var totalCount = 120;
 var countDownPrefix = '';
 var initialUrl = 'https://www.dmv.ca.gov/wasapp/foa/clear.do?goTo=officeVisit';
 
-var optionList = ["hasSeenIntro", "officeId", "reason", "driverLicence", "firstName", "lastName", "phoneArea", "phonePrefix", "phoneSuffix", "dateBefore", "enabled", "sameDay"];
-var mandatoryOptions = ["officeId", "reason", "firstName", "lastName", "phoneArea", "phonePrefix", "phoneSuffix", "dateBefore"];
+var optionList = ["hasSeenIntro", "officeId", "taskCID", "taskRID", "taskVR", "numberItems", "firstName", "lastName", "phoneArea", "phonePrefix", "phoneSuffix", "dateBefore", "enabled", "sameDay"];
+var mandatoryOptions = ["officeId", "firstName", "numberItems", "lastName", "phoneArea", "phonePrefix", "phoneSuffix", "dateBefore"];
 
 var monthNames = ["January", "February", "March", "April", "May", "June",
 "July", "August", "September", "October", "November", "December"
@@ -51,7 +51,7 @@ var checkNewDates = function(options){
   }
 
   // Submitting forms
-  if (document.location.href === 'https://www.dmv.ca.gov/wasapp/foa/confirmOfficeVisit.do#dac') {
+  if (document.location.href === 'https://www.dmv.ca.gov/wasapp/foa/confirmAppt.do#dac') {
     return chrome.storage.sync.set({ enabled: false }, () => {
       alert('Appointment booked!');
     });
@@ -59,22 +59,33 @@ var checkNewDates = function(options){
   }
 
   // Submitting confirmation
-  if (document.location.href === 'https://www.dmv.ca.gov/wasapp/foa/reviewOfficeVisit.do#dac') {
+  if (document.location.href === 'https://www.dmv.ca.gov/wasapp/foa/selectNotification.do#dac') {
     logInfo('Confirming Appointment...');
     document.querySelector('#ApptForm').setAttribute('action', document.querySelector('#ApptForm').getAttribute('action') + '#dac');
     document.querySelector('#ApptForm').submit();
     return;
   }
 
+  // Submitting confirmation
+  if (document.location.href === 'https://www.dmv.ca.gov/wasapp/foa/checkForOfficeVisitConflicts.do#dac') {
+    logInfo('Confirming Notification...');
+    document.querySelector('[name="ApptForm"]').setAttribute('action', document.querySelector('[name="ApptForm"]').getAttribute('action') + '#dac');
+    document.querySelector('[name="ApptForm"]').submit();
+    return;
+  }
+
   // Inputting Appointment data
-  if (document.location.href === initialUrl) {
+  if (document.location.href === initialUrl && document.querySelector('[name="officeId"]')) {
     document.querySelector('[name="officeId"]').value = options.officeId;
-    document.querySelector('#one_task').checked = true;
-    document.querySelector('#' + options.reason).click();
-    document.querySelector('#fdl_number').value = options.driverLicence;
+    if (document.querySelector('[name="numberItems"][value="' + options.numberItems + '"]')) {
+      document.querySelector('[name="numberItems"][value="' + options.numberItems + '"]').checked = true;
+    }
+    document.querySelector('#taskRID').checked = (options.taskRID === true);
+    document.querySelector('#taskCID').checked = (options.taskCID === true);
+    document.querySelector('#taskVR').checked = (options.taskVR === true);
     document.querySelector('#first_name').value = options.firstName;
     document.querySelector('#last_name').value = options.lastName;
-    document.querySelector('#area_code').value = options.phoneArea;
+    document.querySelector('input[name="telArea"]').value = options.phoneArea;
     document.querySelector('input[name="telPrefix"]').value = options.phonePrefix;
     document.querySelector('input[name="telSuffix"]').value = options.phoneSuffix;
     document.querySelector('form[name="ApptForm"]').setAttribute('action', document.querySelector('form[name="ApptForm"]').getAttribute('action') + '#dac');
@@ -111,8 +122,8 @@ var checkNewDates = function(options){
     ) {
       localStorage.setItem('lastDate', dd);
       logInfo('Confirming Appointment...');
-      document.querySelector('#ApptForm').setAttribute('action', document.querySelector('#ApptForm').getAttribute('action') + '#dac');
-      document.querySelector('#ApptForm').submit();
+      document.querySelector('#formId_1').setAttribute('action', document.querySelector('#formId_1').getAttribute('action') + '#dac');
+      document.querySelector('#formId_1').submit();
       return;
     } else {
       countDownPrefix = 'No availabilities before ' + monthNames[dateBefore.getMonth()] + ' ' + dateBefore.getDate();
