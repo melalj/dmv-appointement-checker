@@ -205,22 +205,25 @@
                     <option value="562">YUBA CITY</option>
                 </select>
             </div>
-
             <div class="form-group">
-                <label for="reason">Reason</label>
-                <select id="reason" data-save class="form-control">
-                    <option value=""></option>
-                    <option value="taskDLO">Apply for an original driver license</option>
-                    <option value="taskDL">Apply for a California ID card, replacement or renewal of a California driver license (not including
-                        behind-the-wheel driving test).</option>
-                    <option value="taskDLN">Apply for a California driver license and already have a driver license from another state</option>
-                    <option value="taskRWT">Return to take another written knowledge test</option>
-                    <option value="taskVR">Register or title a vehicle or vessel (boat)</option>
+                <label for="numberItems">How many items would you like to process?</label>
+                <select id="numberItems" data-save class="form-control">
+                    <option value="1" selected>1 item</option>
+                    <option value="2">2 items</option>
+                    <option value="3">3 items</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="driverLicence">Driver License Number (optional)</label>
-                <input type="text" data-save class="form-control" id="driverLicence" />
+                Select the reason(s) for your visit:
+            </div>
+            <div class="form-group">
+                <label for="taskRID" style="margin-left: 20px" ><input type="checkbox" data-save id="taskRID" /> Apply for, replace, or renew a REAL ID</label>
+            </div>
+            <div class="form-group">
+                <label for="taskCID" style="margin-left: 20px" ><input type="checkbox" data-save id="taskCID" /> Apply for, replace, or renew a California DL/ID</label>
+            </div>
+            <div class="form-group">
+                <label for="taskVR" style="margin-left: 20px" ><input type="checkbox" data-save id="taskVR" /> Register or title a vehicle or vessel (boat)</label>
             </div>
             <div class="form-group">
                 <label for="firstName">First name</label>
