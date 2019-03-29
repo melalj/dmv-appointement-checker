@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "DMV Appointment Checker",
-  "short_name": "dmv-appointment-checker",
-  "description": "Monitor latest appointment availabilities for the Californian Department of Motor Vehicle",
-  "version": "1.2",
+  "name": "BM refresher",
+  "short_name": "bm-refresher",
+  "description": "Refresh page for Burning man ticket sale",
+  "version": "1.0",
   "author": "Mohammed Elalj <hi@tonoid.com>",
   "options_page": "options.html",
   "icons": {
@@ -13,12 +13,11 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.dmv.ca.gov/wasapp/foa/*"],
+      "matches": ["https://brctickets.burningman.org/*"],
       "js": ["content-script.js"],
       "run_at": "document_end"
     }
   ],
-  "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",  
   "background": {
     "scripts": ["background.js"]
   },

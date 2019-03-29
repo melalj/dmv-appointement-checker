@@ -11,6 +11,7 @@ function saveOptions() {
     }
   });
   chrome.storage.sync.set(data, function() {
+    convertDate();
     document.getElementById("status").innerHTML =
       '<p class="bg-success">Options saved</p>';
     clearTimeout(timeoutStatus);
@@ -19,7 +20,6 @@ function saveOptions() {
     }, 3000);
   });
 }
-
 function restoreOptions(cb) {
   var optionsList = Array.from(document.querySelectorAll("[data-save]")).map(
     d => d.id
@@ -34,8 +34,15 @@ function restoreOptions(cb) {
         }
       }
     });
+    convertDate();    
     cb();
   });
+}
+
+function convertDate() {
+  if (!document.getElementById('timestamp')) return;
+  var timestamp = Number(document.getElementById('timestamp').value);
+  document.getElementById('convertedDate').innerHTML = new Date(timestamp).toLocaleString();
 }
 
 function attachSave() {
@@ -45,58 +52,8 @@ function attachSave() {
   });
 }
 
-function loadGA() {
-  (function(i, s, o, g, r, a, m) {
-    i["GoogleAnalyticsObject"] = r;
-    (i[r] =
-      i[r] ||
-      function() {
-        (i[r].q = i[r].q || []).push(arguments);
-      }),
-      (i[r].l = 1 * new Date());
-    (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
-    a.async = 1;
-    a.src = g;
-    m.parentNode.insertBefore(a, m);
-  })(
-    window,
-    document,
-    "script",
-    "https://www.google-analytics.com/analytics.js",
-    "ga"
-  );
-
-  var version = chrome.app.getDetails().version;
-  
-
-  ga("create", "UA-110375132-2", "auto");
-
-  ga("set", "checkProtocolTask", function() {});
-
-  ga("require", "displayfeatures");
-
-  ga("send", "pageview", "/" + version + "/options.html");
-}
 
 document.addEventListener("DOMContentLoaded", function() {
   attachSave();
-  restoreOptions(() => {
-    var startDate = new Date();
-    startDate.setDate(startDate.getDate()-1);
-    
-    var endDate = new Date(Date.parse(document.getElementById('dateBefore').value));
-    
-    var dp = $('#dp').datepicker({
-      daysOfWeekDisabled: "0,6",
-      todayHighlight: true,
-      startDate,
-    }).on('changeDate', function(e) {
-      var val = e.date.toString().replace('00:00:00', '23:59:59');
-      document.getElementById('dateBefore').value = val;
-      saveOptions();
-    });
-  
-    dp.datepicker('update', new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()));
-  });
-  loadGA();
+  restoreOptions(() => {});
 });
