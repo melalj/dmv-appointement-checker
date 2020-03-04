@@ -22,6 +22,7 @@ You are welcomed to fork the project and make pull requests.
  * Develop Firefox and Safari versions
 
 ## Release History
+* Version 1.2.0: March 4 2020 Thanks @ssgao
 * Version 1.1.1: December 1 2017
   * Open sourced the extension
 * Version 1.1.0: November 30 2017
