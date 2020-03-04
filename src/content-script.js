@@ -41,8 +41,7 @@ var countDown = function() {
 };
 
 var submitAppointment = function() {
-  document.querySelector('form[id="findOffice"]').setAttribute('action', document.querySelector('form[id="findOffice"]').getAttribute('action'));
-  document.querySelector('form[id="findOffice"]').submit();
+  document.querySelector('input[type="submit"]').click();
 };
 
 var checkNewDates = function(options) {
